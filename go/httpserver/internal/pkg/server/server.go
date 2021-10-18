@@ -1,6 +1,7 @@
 package httpserver
 
 import (
+	"httpserver-cncamp/internal/pkg/server/filters"
 	"net/http"
 
 	log "k8s.io/klog/v2"
@@ -9,7 +10,7 @@ import (
 // ServerConfig represents the configuration for the server
 type ServerConfig struct {
 	Address     string
-	Middlewares []MiddlewareFunc //Middleware are executed in the order that they are applied to the Router.
+	Middlewares []filters.MiddlewareFunc //Middleware are executed in the order that they are applied to the Router.
 	Router      http.Handler
 }
 

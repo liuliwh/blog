@@ -2,6 +2,8 @@ package httpserver
 
 import (
 	"fmt"
+	"httpserver-cncamp/internal/pkg/assert"
+	"httpserver-cncamp/internal/pkg/server/filters"
 	"net"
 	"net/http"
 	"net/http/httptest"
@@ -16,6 +18,7 @@ func TestNewServer(t *testing.T) {
 		HeaderVal1  string = "Value1"
 		HeaderVal2  string = "Value2"
 	)
+	assertStringEqual := assert.StringEqual
 	router := http.NewServeMux()
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, HelloClient)
@@ -37,7 +40,7 @@ func TestNewServer(t *testing.T) {
 	c := ServerConfig{
 		Address:     ln.Addr().String(),
 		Router:      router,
-		Middlewares: []MiddlewareFunc{m1, m2},
+		Middlewares: []filters.MiddlewareFunc{m1, m2},
 	}
 	s, _ := NewServer(&c)
 
@@ -59,11 +62,4 @@ func TestNewServer(t *testing.T) {
 		assertStringEqual(t, aIP, eIP)
 		assertStringEqual(t, aPort, ePort)
 	})
-}
-
-func assertStringEqual(t testing.TB, actual, expected string) {
-	t.Helper()
-	if actual != expected {
-		t.Errorf("response body is wrong, got %q want %q", actual, expected)
-	}
 }

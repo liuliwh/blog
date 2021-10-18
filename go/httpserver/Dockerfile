@@ -5,10 +5,8 @@
 
 FROM golang:1.17-buster AS build
 WORKDIR /app
-COPY ./go.mod .
-COPY ./httpserver ./httpserver
-RUN go get -d -v ./...
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /httpserver ./httpserver 
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /httpserver ./cmd/appserver
 
 
 ##

@@ -1,7 +1,8 @@
-package httpserver
+package filters
 
 import (
 	"fmt"
+	"httpserver-cncamp/internal/pkg/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -23,5 +24,5 @@ func TestEchoReqHeadersToResHeader(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.ServeHTTP(w, req)
 	actual := w.Result().Header.Get(fmt.Sprint(PREFIX, HEADER))
-	assertStringEqual(t, actual, VAL)
+	assert.StringEqual(t, actual, VAL)
 }
