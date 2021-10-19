@@ -10,7 +10,7 @@ import (
 // ServerConfig represents the configuration for the server
 type ServerConfig struct {
 	Address     string
-	Middlewares []filters.MiddlewareFunc //Middleware are executed in the order that they are applied to the Router.
+	Middlewares []filters.MiddlewareFunc // Middleware are executed in the order that they are applied to the Router.
 	Router      http.Handler
 }
 
@@ -24,7 +24,8 @@ func NewServer(conf *ServerConfig) (*HttpServer, error) {
 		Server: &http.Server{
 			Handler: configuredRouter,
 			Addr:    conf.Address,
-		}}, nil
+		},
+	}, nil
 }
 
 // Run the Server
@@ -35,9 +36,13 @@ func (srv *HttpServer) Run() error {
 
 // buildHandlerChain wraps the middleware with router
 func buildHandlerChain(conf *ServerConfig) http.Handler {
-	configuredRouter := conf.Router
-	for _, adapter := range conf.Middlewares {
-		configuredRouter = adapter(configuredRouter)
+	return AdaptHandler(conf.Router, conf.Middlewares...)
+}
+
+// AdaptHandler takes the handler you want to adapt, and a list of our MidMiddlewareFunc types.To make the adapters run in the order in which they are specified, you would reverse through them in the Adapt function, rather than just ranging over them.
+func AdaptHandler(h http.Handler, adapters ...filters.MiddlewareFunc) http.Handler {
+	for _, adapter := range adapters {
+		h = adapter(h)
 	}
-	return configuredRouter
+	return h
 }

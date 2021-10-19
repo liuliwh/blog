@@ -43,10 +43,12 @@ func (rl *responseLogger) Write(b []byte) (int, error) {
 	}
 	return rl.w.Write(b)
 }
+
 func (rl *responseLogger) recordStatus(status int) {
 	rl.status = status
 	rl.statusRecorded = true
 }
+
 func (rl *responseLogger) Log() {
 	ip, _, _ := net.SplitHostPort(rl.req.RemoteAddr)
 	keysAndValues := []interface{}{
@@ -78,7 +80,6 @@ func WithHttpLogging() MiddlewareFunc {
 			defer wrapped.Log()
 
 			next.ServeHTTP(wrapped, r)
-
 		})
 	}
 }
