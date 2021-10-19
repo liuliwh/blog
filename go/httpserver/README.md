@@ -6,10 +6,13 @@ refer to https://github.com/golang-standards/project-layout
 3. Server 端记录访问日志包括客户端 IP，HTTP 返回码，输出到 server 端的标准输出
 4. 当访问 localhost/healthz 时，应返回 200
 # How to build 
-1. build container
+1. build and tag container
 ```
-make build
+make build # default tag: latest
+make tag=v1.0.0 build # tag :v1.0.0
 ```
+Note: the tag value is used for docker tag, and ENV[VERSION] 
+
 2. build and push container
 ```
 make push

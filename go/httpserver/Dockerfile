@@ -13,7 +13,8 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /httpserver ./cmd/appserve
 ## Deploy
 ##
 FROM gcr.io/distroless/base-debian10
-ENV VERSION="v1.0"
+ARG IMG_VER
+ENV VERSION=${IMG_VER:-latest}
 WORKDIR /
 COPY --from=build /httpserver /httpserver
 

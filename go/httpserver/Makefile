@@ -4,7 +4,7 @@ IMAGE ?= httpserver
 
 build: test
 	echo "building httpserver container ${HUB}/${IMAGE}:${tag}"
-	docker build -t ${HUB}/${IMAGE}:${tag} .
+	docker build -t ${HUB}/${IMAGE}:${tag} --build-arg IMG_VER=${tag} .
 push: build
 	echo "pushing ${HUB}/${IMAGE}:${tag}"
 	docker push "${HUB}/${IMAGE}:${tag}"
