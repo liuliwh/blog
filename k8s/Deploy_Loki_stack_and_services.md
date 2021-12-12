@@ -1,6 +1,17 @@
 - [Description](#description)
+- [Requirement](#requirement)
+- [Deploy Loki stack with Helm](#deploy-loki-stack-with-helm)
+  - [Get Repo info](#get-repo-info)
+  - [Install grafana 与 prometheus with options](#install-grafana-与-prometheus-with-options)
+  - [Deploy the service to allow prometheus probe](#deploy-the-service-to-allow-prometheus-probe)
+    - [Add meta into pod template spec](#add-meta-into-pod-template-spec)
+    - [Deploy the service](#deploy-the-service)
+  - [Access the service](#access-the-service)
+  - [Generate some test data](#generate-some-test-data)
+  - [On Grafana dashboard, Verify prometheus scrapped the service metrics](#on-grafana-dashboard-verify-prometheus-scrapped-the-service-metrics)
+  - [Create the Httpserver grafana dashboard](#create-the-httpserver-grafana-dashboard)
 # Description
-Deploy Loki(Loki,)
+Deploy Loki-stack(Loki,prometheus), and set pods to allow prometheus scrape.
 # Requirement
 1. K8s cluster is setup
 2. Helm is installed
