@@ -65,6 +65,7 @@ index 11e18b5..e5ad99c 100644
 -          image: sarah4test/httpserver:latest@sha256:e75d85b5086ace7e926e685c80716b657c43a2510485505fef123f99057f1923
 +          image: sarah4test/httpserver:latest@sha256:de2a3dffbd3ff510175f2819aadb9d5ad8edb74bde8dc5606baf148ec0d14292
 ```
+The finished yaml file is located at https://github.com/liuliwh/k8s-ansible/blob/main/deployment/myhttpserver.yaml
 ### Deploy the service
 ```bash
 kubectl  --kubeconfig capi-quickstart.kubeconfig create -f k8s-ansible/deployment/myhttpserver.yaml 
